@@ -1,0 +1,319 @@
+=====================================================================
+Shanaz Mohamed 
+=====================================================================
+TASK 1:
+
+mysql> SELECT TITLE, STATUS, DIFFICULTY, QUESTIONID
+    -> FROM QUESTIONS, TOPICS
+    -> WHERE QUESTIONS.TOPICID = TOPICS.TOPICID
+    -> ORDER BY DIFFICULTY, TITLE;
++----------------+--------+------------+------------+
+| TITLE          | STATUS | DIFFICULTY | QUESTIONID |
++----------------+--------+------------+------------+
+| Pottery        | A      |       NULL |         33 |
+| Pottery        | A      |       NULL |         41 |
+| Pottery        | A      |       NULL |         34 |
+| Pottery        | A      |       NULL |         52 |
+| Pottery        | A      |       NULL |         30 |
+| Pottery        | A      |       NULL |         36 |
+| Pottery        | A      |       NULL |         31 |
+| Pottery        | A      |       NULL |         40 |
+| Jewelry Making | R      |          1 |         43 |
+| Scrapbooking   | A      |          1 |         23 |
+| Woodworking    | A      |          1 |          4 |
+| Woodworking    | A      |          1 |          5 |
+| Woodworking    | A      |          1 |          1 |
+| Woodworking    | A      |          1 |         56 |
+| Jewelry Making | A      |          2 |         46 |
+| Jewelry Making | A      |          2 |         47 |
+| Jewelry Making | A      |          2 |         44 |
+| Quilting       | A      |          2 |         10 |
+| Quilting       | R      |          2 |         16 |
+| Quilting       | A      |          2 |         12 |
+| Quilting       | A      |          2 |         15 |
+| Woodworking    | A      |          2 |          3 |
+| Quilting       | A      |          3 |         14 |
+| Quilting       | A      |          3 |          7 |
+| Quilting       | A      |          3 |         50 |
+| Scrapbooking   | A      |          3 |         29 |
+| Scrapbooking   | A      |          3 |         20 |
+| Scrapbooking   | A      |          3 |         26 |
+| Woodworking    | A      |          3 |         53 |
+| Jewelry Making | A      |          4 |         45 |
+| Quilting       | A      |          4 |         51 |
+| Scrapbooking   | R      |          4 |         24 |
+| Scrapbooking   | A      |          4 |         21 |
+| Scrapbooking   | A      |          4 |         28 |
+| Woodworking    | A      |          4 |         57 |
++----------------+--------+------------+------------+
+35 rows in set (0.00 sec)
+=================================================================================================================
+TASK 2:
+
+mysql> SELECT TEXT 
+    -> FROM QUESTIONS
+    -> WHERE QUESTIONID IN
+    -> (SELECT QUESTIONID 
+    -> FROM QUIZQUESTIONS
+    -> WHERE QUIZNUM = 2);
++-------------------------------+
+| TEXT                          |
++-------------------------------+
+| What is a lathe?              |
+| Using turning you can make    |
+| Eye protection is             |
+| A slab pot should have        |
+| To throw a pot on a wheel     |
+| Trimming works best when clay |
+| Which is not a type of clay?  |
+| What is a kiln?               |
+| Which is not a fastener?      |
+| You can finish your work with |
++-------------------------------+
+10 rows in set (0.00 sec)
+
+=================================================================================================================
+TASK 3:
+mysql> SELECT TEXT 
+    -> FROM QUESTIONS
+    -> WHERE EXISTS
+    -> (SELECT *
+    -> FROM QUIZQUESTIONS
+    -> WHERE QUESTIONS.QUESTIONID = QUIZQUESTIONS.QUESTIONID
+    -> AND QUIZNUM =2);
++-------------------------------+
+| TEXT                          |
++-------------------------------+
+| What is a lathe?              |
+| Using turning you can make    |
+| Eye protection is             |
+| A slab pot should have        |
+| To throw a pot on a wheel     |
+| Trimming works best when clay |
+| Which is not a type of clay?  |
+| What is a kiln?               |
+| Which is not a fastener?      |
+| You can finish your work with |
++-------------------------------+
+10 rows in set (0.00 sec)
+=================================================================================================================
+TASK 4:
+
+mysql> SELECT QUIZQUESTIONS.QUIZNUM, QUIZQUESTIONS.QUIZDATE, TOPICS.TITLE, QUESTIONS.QUESTIONID,
+	   QUESTIONS.TEXT, QUESTIONS.CORRECTANSWER, QUIZZES.NUMSTUDENTS, QUIZQUESTIONS.NUMCHOSEC
+    -> FROM QUIZQUESTIONS, TOPICS, QUESTIONS, QUIZZES
+    -> WHERE QUESTIONS.TOPICID = TOPICS.TOPICID
+    -> AND QUIZQUESTIONS.QUIZDATE = QUIZZES.QUIZDATE
+    -> AND QUIZQUESTIONS.QUESTIONID = QUESTIONS.QUESTIONID
+    -> AND CORRECTANSWER != 'C'
+    -> AND ANSWERC != 'NULL';
++---------+------------+----------------+------------+--------------------------------+---------------+-------------+-----------+
+| QUIZNUM | QUIZDATE   | TITLE          | QUESTIONID | TEXT                           | CORRECTANSWER | NUMSTUDENTS | NUMCHOSEC |
++---------+------------+----------------+------------+--------------------------------+---------------+-------------+-----------+
+|       1 | 2009-06-15 | Jewelry Making |         46 | What is a loupe?               | A             |        NULL |         8 |
+|       1 | 2009-06-15 | Jewelry Making |         47 | Clarity refers to              | A             |        NULL |         3 |
+|       1 | 2010-06-14 | Woodworking    |          1 | What is a lathe?               | B             |          25 |         4 |
+|       1 | 2010-06-14 | Woodworking    |          3 | Using turning you can make     | A             |          25 |         5 |
+|       1 | 2010-06-14 | Woodworking    |          5 | What is a gouge?               | A             |          25 |        13 |
+|       2 | 2009-03-06 | Pottery        |         31 | A slab pot should have         | A             |          15 |         6 |
+|       2 | 2009-03-06 | Pottery        |         33 | To throw a pot on a wheel      | D             |          15 |         1 |
+|       2 | 2009-03-06 | Pottery        |         34 | Trimming works best when clay  | B             |          15 |         5 |
+|       2 | 2009-07-01 | Woodworking    |          1 | What is a lathe?               | B             |        NULL |         3 |
+|       2 | 2009-07-01 | Woodworking    |          3 | Using turning you can make     | A             |        NULL |         1 |
+|       2 | 2009-07-01 | Woodworking    |         57 | You can finish your work with  | D             |        NULL |         2 |
+|       2 | 2010-06-30 | Pottery        |         31 | A slab pot should have         | A             |          23 |         5 |
+|       2 | 2010-06-30 | Pottery        |         33 | To throw a pot on a wheel      | D             |          23 |         5 |
+|       2 | 2010-06-30 | Pottery        |         34 | Trimming works best when clay  | B             |          23 |        10 |
+|       2 | 2010-06-30 | Pottery        |         52 | What is a kiln?                | B             |          23 |         3 |
+|       3 | 2009-03-24 | Quilting       |          7 | If you are hand quilting use   | D             |          13 |         3 |
+|       3 | 2009-03-24 | Quilting       |         12 | Which uses curved seams?       | B             |          13 |         1 |
+|       3 | 2009-03-24 | Quilting       |         51 | Flower pins are used because   | A             |          13 |         1 |
+|       3 | 2009-10-12 | Quilting       |          7 | If you are hand quilting use   | D             |          13 |      NULL |
+|       3 | 2009-10-12 | Quilting       |         51 | Flower pins are used because   | A             |          13 |      NULL |
+|       3 | 2010-07-31 | Jewelry Making |         47 | Clarity refers to              | A             |          23 |      NULL |
+|       4 | 2010-04-13 | Quilting       |         12 | Which uses curved seams?       | B             |        NULL |         4 |
+|       4 | 2010-04-13 | Quilting       |         51 | Flower pins are used because   | A             |        NULL |        15 |
+|       4 | 2010-11-21 | Scrapbooking   |         21 | Use die-cutting to make        | D             |          20 |         4 |
+|       4 | 2010-11-21 | Scrapbooking   |         23 | When writing it is best to use | B             |          20 |         5 |
+|       5 | 2010-12-08 | Woodworking    |          5 | What is a gouge?               | A             |          18 |         7 |
+|       5 | 2010-12-08 | Woodworking    |         57 | You can finish your work with  | D             |          18 |         5 |
++---------+------------+----------------+------------+--------------------------------+---------------+-------------+-----------+
+27 rows in set (0.00 sec)
+
+=================================================================================================================
+
+TASK 5:
+mysql> SELECT F.QUESTIONID, F.QUIZDATE AS FIRSTQUIZ, F.NUMCHOSEA AS FIRSTA,
+	   S.QUIZDATE AS SECONDQUIZ, S.NUMCHOSEA AS SECONDA
+    -> FROM QUIZQUESTIONS F, QUIZQUESTIONS S
+    -> WHERE F.QUESTIONID = S.QUESTIONID
+    -> AND F.QUIZDATE < S.QUIZDATE
+    -> ORDER BY F.QUESTIONID, F.QUIZDATE;
++------------+------------+--------+------------+---------+
+| QUESTIONID | FIRSTQUIZ  | FIRSTA | SECONDQUIZ | SECONDA |
++------------+------------+--------+------------+---------+
+|          1 | 2009-07-01 |      3 | 2010-06-14 |       5 |
+|          3 | 2009-07-01 |     10 | 2010-06-14 |       3 |
+|          4 | 2009-07-01 |      3 | 2010-06-14 |      15 |
+|          5 | 2010-06-14 |      5 | 2010-12-08 |       3 |
+|          7 | 2009-03-24 |      2 | 2009-10-12 |    NULL |
+|         10 | 2009-03-24 |      2 | 2010-04-13 |       2 |
+|         10 | 2009-03-24 |      2 | 2009-10-12 |    NULL |
+|         10 | 2009-10-12 |   NULL | 2010-04-13 |       2 |
+|         12 | 2009-03-24 |      5 | 2010-04-13 |       8 |
+|         14 | 2009-10-12 |   NULL | 2010-04-13 |       5 |
+|         15 | 2009-03-24 |     10 | 2010-04-13 |      12 |
+|         15 | 2009-03-24 |     10 | 2009-10-12 |    NULL |
+|         15 | 2009-10-12 |   NULL | 2010-04-13 |      12 |
+|         16 | 2009-03-24 |      8 | 2010-04-13 |       2 |
+|         31 | 2009-03-06 |      3 | 2010-06-30 |       3 |
+|         33 | 2009-03-06 |      2 | 2010-06-30 |       3 |
+|         34 | 2009-03-06 |      4 | 2010-06-30 |       4 |
+|         40 | 2009-03-06 |      2 | 2010-06-30 |      12 |
+|         43 | 2009-06-15 |      2 | 2010-07-31 |    NULL |
+|         45 | 2009-06-15 |      6 | 2010-07-31 |    NULL |
+|         47 | 2009-06-15 |     10 | 2010-07-31 |    NULL |
+|         51 | 2009-03-24 |      9 | 2009-10-12 |    NULL |
+|         51 | 2009-03-24 |      9 | 2010-04-13 |       0 |
+|         51 | 2009-10-12 |   NULL | 2010-04-13 |       0 |
+|         53 | 2009-07-01 |      2 | 2010-12-08 |       8 |
+|         57 | 2009-07-01 |      3 | 2010-12-08 |       9 |
++------------+------------+--------+------------+---------+
+26 rows in set (0.00 sec)
+=================================================================================================================
+
+TASK 6:
+ 
+mysql> SELECT QUESTIONID, TEXT, ANSWERA
+    -> FROM QUESTIONS
+    -> WHERE CORRECTANSWER = 'A'
+    -> UNION
+    -> SELECT QUESTIONS.QUESTIONID, QUESTIONS.TEXT, QUESTIONS.ANSWERA
+    -> FROM QUESTIONS, TOPICS
+    -> WHERE QUESTIONS.TOPICID = TOPICS.TOPICID
+    -> AND TOPICS.NUMCLASSSESSIONS > 2
+    -> ORDER BY TEXT;
++------------+--------------------------------+----------------------+
+| QUESTIONID | TEXT                           | ANSWERA              |
++------------+--------------------------------+----------------------+
+|         44 | A finding is                   | Only a clasp         |
+|         28 | A scrapbook page is            | Never in a binder    |
+|         29 | A scrapbook page must be flat. | True                 |
+|         31 | A slab pot should have         | Even thickness       |
+|         20 | Acid-free paper is preferred   | True                 |
+|         43 | All jewelry uses beads.        | True                 |
+|         56 | Always use a tool for          | Its intended purpose |
+|         47 | Clarity refers to              | Flaws                |
+|         15 | Cotton fabric is best.         | True                 |
+|         36 | Earthenware fires at           | 1700 - 2100 degree F |
+|         51 | Flower pins are used because   | They are flat        |
+|         26 | Never use beads.               | True                 |
+|         24 | To create identical bears use  | A punch              |
+|         21 | Use die-cutting to make        | Holes                |
+|          3 | Using turning you can make     | A chair leg          |
+|          5 | What is a gouge?               | A handtool           |
+|         46 | What is a loupe?               | A magnifier          |
+|         23 | When writing it is best to use | Pencil               |
+|         45 | Where is a Daith piercing?     | The nose             |
++------------+--------------------------------+----------------------+
+19 rows in set (0.00 sec)
+
+=================================================================================================================
+
+TASK 7:
+
+mysql> SELECT QUESTIONID, TEXT, ANSWERA
+    -> FROM QUESTIONS
+    -> WHERE CORRECTANSWER = 'A'
+    -> OR EXISTS
+    -> (SELECT *
+    -> FROM QUIZQUESTIONS
+    -> WHERE QUIZQUESTIONS.QUESTIONID = QUESTIONS.QUESTIONID
+    -> AND NUMCHOSEA > '10')
+    -> ORDER BY TEXT;
++------------+-------------------------------+----------------------+
+| QUESTIONID | TEXT                          | ANSWERA              |
++------------+-------------------------------+----------------------+
+|         31 | A slab pot should have        | Even thickness       |
+|         20 | Acid-free paper is preferred  | True                 |
+|         56 | Always use a tool for         | Its intended purpose |
+|         47 | Clarity refers to             | Flaws                |
+|         15 | Cotton fabric is best.        | True                 |
+|         36 | Earthenware fires at          | 1700 - 2100 degree F |
+|          4 | Eye protection is             | Never required       |
+|         51 | Flower pins are used because  | They are flat        |
+|         24 | To create identical bears use | A punch              |
+|          3 | Using turning you can make    | A chair leg          |
+|          5 | What is a gouge?              | A handtool           |
+|         46 | What is a loupe?              | A magnifier          |
+|         40 | Which is not a type of clay?  | Earthenware          |
++------------+-------------------------------+----------------------+
+13 rows in set (0.00 sec)
+
+=================================================================================================================
+TASK 8:
+
+mysql> SELECT QUESTIONID, STATUS
+    -> FROM QUESTIONS
+    -> WHERE DIFFICULTY < ALL
+    -> (SELECT DIFFICULTY
+    -> FROM QUESTIONS
+    -> WHERE TOPICID = 'QULT');
++------------+--------+
+| QUESTIONID | STATUS |
++------------+--------+
+|          1 | A      |
+|          4 | A      |
+|          5 | A      |
+|         23 | A      |
+|         43 | R      |
+|         56 | A      |
++------------+--------+
+6 rows in set (0.00 sec)
+
+=================================================================================================================
+TASK 9:
+
+mysql> SELECT QUESTIONID, STATUS
+    -> FROM QUESTIONS
+    -> WHERE DIFFICULTY <
+    -> (SELECT MIN(DIFFICULTY)
+    -> FROM QUESTIONS
+    -> WHERE TOPICID = 'QULT');
++------------+--------+
+| QUESTIONID | STATUS |
++------------+--------+
+|          1 | A      |
+|          4 | A      |
+|          5 | A      |
+|         23 | A      |
+|         43 | R      |
+|         56 | A      |
++------------+--------+
+6 rows in set (0.00 sec)
+
+=================================================================================================================
+TASK 10:
+mysql> SELECT TITLE, QUE.QUESTIONID, CORRECTANSWER, NUMCHOSEA
+    -> FROM TOPICS T, QUIZQUESTIONS QQ, QUESTIONS QUE
+    -> WHERE T.TOPICID = QUE.TOPICID
+    -> AND QUE.QUESTIONID = QQ.QUESTIONID
+    -> AND ANSWERC IS NULL
+    -> AND NUMCHOSEA > ALL
+    -> (SELECT NUMCHOSEA
+    -> FROM QUIZZES QZ, QUIZQUESTIONS QQ
+    -> WHERE QZ.QUIZNUM = QQ.QUIZNUM
+    -> AND QZ.QUIZDATE = QQ.QUIZDATE
+    -> AND QZ.QUIZDATE < '2010-01-01'
+    -> AND LOWSCORE > 15);
++--------------+------------+---------------+-----------+
+| TITLE        | QUESTIONID | CORRECTANSWER | NUMCHOSEA |
++--------------+------------+---------------+-----------+
+| Quilting     |         15 | A             |        12 |
+| Scrapbooking |         20 | A             |        15 |
+| Woodworking  |         56 | A             |        15 |
++--------------+------------+---------------+-----------+
+3 rows in set (0.00 sec)
+
+=================================================================================================================
+

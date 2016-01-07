@@ -1,0 +1,188 @@
+
+
+SHANAZ MOHAMED
+
+*********************************************************************
+Task 1:
+
+mysql> select distinct lastmoddate
+    -> from questions
+    -> where lastmoddate is not null;
++-------------+
+| lastmoddate |
++-------------+
+| 2010-06-03  |
+| 2011-05-16  |
+| 2009-11-28  |
+| 2010-07-30  |
+| 2007-07-12  |
++-------------+
+5 rows in set (0.00 sec)
+
+*********************************************************************
+Task 2:
+
+mysql> select count(*)
+    -> from topics
+    -> where numclasssessions < 3;
++----------+
+| count(*) |
++----------+
+|        5 |
++----------+
+1 row in set (0.00 sec)
+
+*********************************************************************
+Task 3:
+
+mysql> select avg(difficulty)
+    -> from questions;
++-----------------+
+| avg(difficulty) |
++-----------------+
+|          2.4815 |
++-----------------+
+1 row in set (0.00 sec)
+
+*********************************************************************
+Task 4:
+
+mysql> select count(*)
+    -> from quizzes
+    -> where numpassing <10;
++----------+
+| count(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.00 sec)
+
+*********************************************************************
+Task 5:
+
+mysql> select count(*)
+    -> from questions
+    -> where text like '%pot%';
++----------+
+| count(*) |
++----------+
+|        4 |
++----------+
+1 row in set (0.00 sec)
+
+*********************************************************************
+Task 6:
+
+mysql>  select Title
+    ->  from Topics
+    ->  where TopicId in
+    ->  (select TopicId
+    ->  from questions
+    ->  where Difficulty = 1);
++----------------+
+| Title          |
++----------------+
+| Jewelry Making |
+| Scrapbooking   |
+| Woodworking    |
++----------------+
+3 rows in set (0.00 sec)
+
+*********************************************************************
+Task 7:
+
+mysql> select quiznum, quizdate
+    -> from quizzes
+    -> where lowscore <
+    ->  (select avg(lowscore)
+    -> from quizzes);
++---------+------------+
+| quiznum | quizdate   |
++---------+------------+
+|       1 | 2009-01-25 |
+|       1 | 2010-01-24 |
+|       2 | 2009-03-06 |
+|       2 | 2009-09-21 |
+|       2 | 2010-03-05 |
+|       3 | 2010-10-11 |
+|       4 | 2010-04-13 |
+|       4 | 2010-11-21 |
+|       5 | 2009-05-04 |
+|       5 | 2009-12-09 |
+|       5 | 2010-04-03 |
++---------+------------+
+11 rows in set (0.00 sec)
+
+*********************************************************************
+Task 8:
+
+mysql> select questionid, topicid
+    -> from questions
+    -> where difficulty is null;
++------------+---------+
+| questionid | topicid |
++------------+---------+
+|         30 | Pott    |
+|         31 | Pott    |
+|         33 | Pott    |
+|         34 | Pott    |
+|         36 | Pott    |
+|         40 | Pott    |
+|         41 | Pott    |
+|         52 | Pott    |
++------------+---------+
+8 rows in set (0.00 sec)
+
+*********************************************************************
+Task 9:
+
+mysql> select quiznum, avg(highscore)
+    -> from quizzes
+    -> where numstudents > 10
+    -> group by quiznum;
++---------+----------------+
+| quiznum | avg(highscore) |
++---------+----------------+
+|       1 |       22.83333 |
+|       2 |       21.12500 |
+|       3 |       19.50000 |
+|       4 |       20.00000 |
+|       5 |       19.75000 |
++---------+----------------+
+5 rows in set (0.00 sec)
+
+
+*********************************************************************
+Task 10 :
+
+mysql>  select quiznum, sum(numstudents)
+    ->  from quizzes
+    ->  group by quiznum
+    ->  having sum(numstudents) > 75;
++---------+------------------+
+| quiznum | sum(numstudents) |
++---------+------------------+
+|       1 |               93 |
+|       2 |               92 |
+|       3 |               87 |
++---------+------------------+
+3 rows in set (0.00 sec)
+
+********************************************************************
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

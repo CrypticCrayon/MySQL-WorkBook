@@ -1,0 +1,312 @@
+=====================================================================
+Shanaz Mohamed
+
+=====================================================================
+
+TASK 1
+
+mysql> SELECT QUESTIONID, TITLE, CORRECTANSWER, DIFFICULTY
+    -> FROM QUESTIONS
+    -> INNER JOIN TOPICS
+    -> ON QUESTIONS.TOPICID = TOPICS.TOPICID
+    -> ORDER BY CORRECTANSWER, TITLE;
++------------+----------------+---------------+------------+
+| QuestionId | Title          | CorrectAnswer | Difficulty |
++------------+----------------+---------------+------------+
+|         46 | Jewelry Making | A             |          2 |
+|         47 | Jewelry Making | A             |          2 |
+|         31 | Pottery        | A             |       NULL |
+|         36 | Pottery        | A             |       NULL |
+|         15 | Quilting       | A             |          2 |
+|         51 | Quilting       | A             |          4 |
+|         24 | Scrapbooking   | A             |          4 |
+|         20 | Scrapbooking   | A             |          3 |
+|          3 | Woodworking    | A             |          2 |
+|         56 | Woodworking    | A             |          1 |
+|          5 | Woodworking    | A             |          1 |
+|         43 | Jewelry Making | B             |          1 |
+|         34 | Pottery        | B             |       NULL |
+|         52 | Pottery        | B             |       NULL |
+|         30 | Pottery        | B             |       NULL |
+|         16 | Quilting       | B             |          2 |
+|         12 | Quilting       | B             |          2 |
+|         26 | Scrapbooking   | B             |          3 |
+|         23 | Scrapbooking   | B             |          1 |
+|         29 | Scrapbooking   | B             |          3 |
+|          1 | Woodworking    | B             |          1 |
+|         44 | Jewelry Making | C             |          2 |
+|         45 | Jewelry Making | C             |          4 |
+|         40 | Pottery        | C             |       NULL |
+|         41 | Pottery        | C             |       NULL |
+|         14 | Quilting       | C             |          3 |
+|         50 | Quilting       | C             |          3 |
+|         10 | Quilting       | C             |          2 |
+|         53 | Woodworking    | C             |          3 |
+|          4 | Woodworking    | C             |          1 |
+|         33 | Pottery        | D             |       NULL |
+|          7 | Quilting       | D             |          3 |
+|         21 | Scrapbooking   | D             |          4 |
+|         28 | Scrapbooking   | D             |          4 |
+|         57 | Woodworking    | D             |          4 |
++------------+----------------+---------------+------------+
+35 rows in set (0.01 sec)
+
+*************************************************************************************************************************
+
+TASK 2
+
+mysql> SELECT QUESTIONS.QUESTIONID, QUIZNUM, QUIZDATE, NUMCHOSED
+    -> FROM QUESTIONS
+    -> INNER JOIN QUIZQUESTIONS
+    -> ON QUESTIONS.QUESTIONID = QUIZQUESTIONS.QUESTIONID
+    -> WHERE CORRECTANSWER = 'D';
++------------+---------+------------+-----------+
+| QuestionId | QuizNum | QuizDate   | NumChoseD |
++------------+---------+------------+-----------+
+|         33 |       2 | 2009-03-06 |         6 |
+|         57 |       2 | 2009-07-01 |         6 |
+|         33 |       2 | 2010-06-30 |        10 |
+|          7 |       3 | 2009-03-24 |         4 |
+|          7 |       3 | 2009-10-12 |      NULL |
+|         21 |       4 | 2010-11-21 |         5 |
+|         57 |       5 | 2010-12-08 |         1 |
++------------+---------+------------+-----------+
+7 rows in set (0.00 sec)
+
+*************************************************************************************************************************
+
+TASK 3
+
+mysql> SELECT Q.QUIZNUM, Q.QUIZDATE, TITLE
+    -> FROM QUIZZES Q
+    -> INNER JOIN QUIZQUESTIONS QQ
+    -> ON Q.QUIZNUM = QQ.QUIZNUM
+    -> AND Q.QUIZDATE = QQ.QUIZDATE
+    -> INNER JOIN QUESTIONS Q1
+    -> ON QQ.QUESTIONID = Q1.QUESTIONID
+    -> INNER JOIN TOPICS T
+    -> ON Q1.TOPICID = T.TOPICID
+    -> WHERE (HIGHSCORE - LOWSCORE) > 8 ;
++---------+------------+--------------+
+| QuizNum | QuizDate   | Title        |
++---------+------------+--------------+
+|       2 | 2009-07-01 | Woodworking  | 
+|       2 | 2009-07-01 | Woodworking  | 
+|       2 | 2009-07-01 | Woodworking  | 
+|       2 | 2009-07-01 | Woodworking  | 
+|       2 | 2009-07-01 | Woodworking  | 
+|       4 | 2010-11-21 | Scrapbooking | 
+|       4 | 2010-11-21 | Scrapbooking | 
+|       4 | 2010-11-21 | Scrapbooking | 
+|       4 | 2010-11-21 | Scrapbooking | 
+|       4 | 2010-11-21 | Scrapbooking | 
++---------+------------+--------------+
+10 rows in set (0.00 sec)
+************************************************************************************************************************
+
+Task # 4
+
+
+mysql> SELECT TITLE, QUESTIONID, DIFFICULTY
+    -> FROM TOPICS T
+    -> INNER JOIN QUESTIONS Q
+    -> ON T.TOPICID = Q.TOPICID
+    -> WHERE ANSWERD IS NOT NULL
+    -> ORDER BY TITLE;
++----------------+------------+------------+
+| Title          | QuestionId | Difficulty |
++----------------+------------+------------+
+| Jewelry Making |         45 |          4 | 
+| Jewelry Making |         46 |          2 | 
+| Pottery        |         30 |       NULL | 
+| Pottery        |         33 |       NULL | 
+| Pottery        |         40 |       NULL | 
+| Pottery        |         52 |       NULL | 
+| Quilting       |          7 |          3 | 
+| Quilting       |         10 |          2 | 
+| Quilting       |         12 |          2 | 
+| Quilting       |         14 |          3 | 
+| Quilting       |         50 |          3 | 
+| Quilting       |         51 |          4 | 
+| Scrapbooking   |         21 |          4 | 
+| Scrapbooking   |         23 |          1 | 
+| Scrapbooking   |         24 |          4 | 
+| Scrapbooking   |         28 |          4 | 
+| Woodworking    |         53 |          3 | 
+| Woodworking    |         57 |          4 | 
+| Woodworking    |          1 |          1 | 
+| Woodworking    |          3 |          2 | 
+| Woodworking    |          4 |          1 | 
+| Woodworking    |          5 |          1 | 
++----------------+------------+------------+
+22 rows in set (0.00 sec)
+
+*************************************************************************************************************************
+
+TASK 5
+
+SELECT QUIZNUM, QUIZDATE, NUMCLASSSESSIONS
+FROM TOPICS, QUIZZES
+ORDER BY QUIZDATE;
+
+
+|       5 | 2010-12-08 |                2 |
+|       5 | 2010-12-08 |                3 |
+|       5 | 2010-12-08 |                2 |
+|       5 | 2010-12-08 |             NULL |
+|       5 | 2010-12-08 |                1 |
+|       5 | 2010-12-08 |                4 |
+|       5 | 2010-12-08 |             NULL |
+|       5 | 2010-12-08 |                3 |
+|       5 | 2010-12-08 |                2 |
+|       5 | 2010-12-08 |             NULL |
+|       5 | 2010-12-08 |                1 |
++---------+------------+------------------+
+312 rows in set (0.00 sec)
+
+
+
+*************************************************************************************************************************
+TASK 6
+
+
+mysql> CREATE TABLE Retired LIKE QUESTIONS;
+Query OK, 0 rows affected (0.19 sec)
+
+mysql> describe retired;
++---------------+--------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Default | Extra |
++---------------+--------------+------+-----+---------+-------+
+| QuestionId    | int(11)      | NO   | PRI | NULL    |       |
+| TopicId       | char(4)      | YES  |     | NULL    |       |
+| Text          | varchar(30)  | NO   |     | NULL    |       |
+| AnswerA       | varchar(20)  | NO   |     | NULL    |       |
+| AnswerB       | varchar(20)  | NO   |     | NULL    |       |
+| AnswerC       | varchar(20)  | YES  |     | NULL    |       |
+| AnswerD       | varchar(20)  | YES  |     | NULL    |       |
+| CorrectAnswer | char(1)      | NO   |     | NULL    |       |
+| LastModDate   | date         | YES  |     | NULL    |       |
+| Status        | char(1)      | YES  |     | NULL    |       |
+| Difficulty    | decimal(1,0) | YES  |     | NULL    |       |
++---------------+--------------+------+-----+---------+-------+
+11 rows in set (0.00 sec)
+
+mysql> describe questions;
++---------------+--------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Default | Extra |
++---------------+--------------+------+-----+---------+-------+
+| QuestionId    | int(11)      | NO   | PRI | NULL    |       |
+| TopicId       | char(4)      | YES  |     | NULL    |       |
+| Text          | varchar(30)  | NO   |     | NULL    |       |
+| AnswerA       | varchar(20)  | NO   |     | NULL    |       |
+| AnswerB       | varchar(20)  | NO   |     | NULL    |       |
+| AnswerC       | varchar(20)  | YES  |     | NULL    |       |
+| AnswerD       | varchar(20)  | YES  |     | NULL    |       |
+| CorrectAnswer | char(1)      | NO   |     | NULL    |       |
+| LastModDate   | date         | YES  |     | NULL    |       |
+| Status        | char(1)      | YES  |     | NULL    |       |
+| Difficulty    | decimal(1,0) | YES  |     | NULL    |       |
++---------------+--------------+------+-----+---------+-------+
+11 rows in set (0.01 sec)
+
+**************************************************************************************************************************************************************************************
+TASK 7
+
+mysql> INSERT INTO RETIRED
+    -> SELECT *
+    -> FROM QUESTIONS
+    -> WHERE STATUS = 'R';
+Query OK, 3 rows affected (0.19 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM RETIRED
+    -> ;
++------------+---------+-------------------------------+---------+------------+---------------+------------------+---------------+-------------+--------+---------
+| QuestionId | TopicId | Text                          | AnswerA | AnswerB    | AnswerC       | AnswerD          | CorrectAnswer | LastModDate | Status | Difficul
++------------+---------+-------------------------------+---------+------------+---------------+------------------+---------------+-------------+--------+---------
+|         16 | Qult    | A seam ripper is required.    | True    | False      | NULL          | NULL             | B             | NULL        | R      |
+|         24 | Scrp    | To create identical bears use | A punch | A scissors | A craft knife | Any of the above | A             | NULL        | R      |
+|         43 | Jewl    | All jewelry uses beads.       | True    | False      | NULL          | NULL             | B             | NULL        | R      |
++------------+---------+-------------------------------+---------+------------+---------------+------------------+---------------+-------------+--------+---------
+3 rows in set (0.00 sec)
+
+
+**************************************************************************************************************************************************************************************
+TASK 8
+
+mysql> UPDATE RETIRED
+    -> SET DIFFICULTY = (DIFFICULTY * 2)
+    -> WHERE ANSWERA = 'TRUE';
+Query OK, 2 rows affected (0.03 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> SELECT * FROM RETIRED;
++------------+---------+-------------------------------+---------+------------+---------------+------------------+---------------+-------------+--------+---------
+| QuestionId | TopicId | Text                          | AnswerA | AnswerB    | AnswerC       | AnswerD          | CorrectAnswer | LastModDate | Status | Difficul
++------------+---------+-------------------------------+---------+------------+---------------+------------------+---------------+-------------+--------+---------
+|         16 | Qult    | A seam ripper is required.    | True    | False      | NULL          | NULL             | B             | NULL        | R      |
+|         24 | Scrp    | To create identical bears use | A punch | A scissors | A craft knife | Any of the above | A             | NULL        | R      |
+|         43 | Jewl    | All jewelry uses beads.       | True    | False      | NULL          | NULL             | B             | NULL        | R      |
++------------+---------+-------------------------------+---------+------------+---------------+------------------+---------------+-------------+--------+---------
+3 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM RETIRED
+    -> WHERE ANSWERA = 'TRUE';
++------------+---------+----------------------------+---------+---------+---------+---------+---------------+-------------+--------+------------+
+| QuestionId | TopicId | Text                       | AnswerA | AnswerB | AnswerC | AnswerD | CorrectAnswer | LastModDate | Status | Difficulty |
++------------+---------+----------------------------+---------+---------+---------+---------+---------------+-------------+--------+------------+
+|         16 | Qult    | A seam ripper is required. | True    | False   | NULL    | NULL    | B             | NULL        | R      |          4 |
+|         43 | Jewl    | All jewelry uses beads.    | True    | False   | NULL    | NULL    | B             | NULL        | R      |          2 |
++------------+---------+----------------------------+---------+---------+---------+---------+---------------+-------------+--------+------------+
+2 rows in set (0.00 sec)
+
+
+**************************************************************************************************************************************************************************************
+TASK 9
+
+
+mysql> DELETE
+    -> FROM RETIRED
+    -> WHERE TOPICID = 'JEWL';
+Query OK, 1 row affected (0.14 sec)
+
+mysql> SELECT * FROM RETIRED;
++------------+---------+-------------------------------+---------+------------+---------------+------------------+---------------+-------------+--------+---------
+| QuestionId | TopicId | Text                          | AnswerA | AnswerB    | AnswerC       | AnswerD          | CorrectAnswer | LastModDate | Status | Difficul
++------------+---------+-------------------------------+---------+------------+---------------+------------------+---------------+-------------+--------+---------
+|         16 | Qult    | A seam ripper is required.    | True    | False      | NULL          | NULL             | B             | NULL        | R      |
+|         24 | Scrp    | To create identical bears use | A punch | A scissors | A craft knife | Any of the above | A             | NULL        | R      |
++------------+---------+-------------------------------+---------+------------+---------------+------------------+---------------+-------------+--------+---------
+2 rows in set (0.00 sec)
+
+
+**************************************************************************************************************************************************************************************
+
+TASK 10
+
+mysql> UPDATE RETIRED
+    -> SET ANSWERD = NULL
+    -> WHERE TOPICID = 'SCRP';
+Query OK, 1 row affected (0.14 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM RETIRED;
++------------+---------+-------------------------------+---------+------------+---------------+---------+---------------+-------------+--------+------------+
+| QuestionId | TopicId | Text                          | AnswerA | AnswerB    | AnswerC       | AnswerD | CorrectAnswer | LastModDate | Status | Difficulty |
++------------+---------+-------------------------------+---------+------------+---------------+---------+---------------+-------------+--------+------------+
+|         16 | Qult    | A seam ripper is required.    | True    | False      | NULL          | NULL    | B             | NULL        | R      |          4 |
+|         24 | Scrp    | To create identical bears use | A punch | A scissors | A craft knife | NULL    | A             | NULL        | R      |          4 |
++------------+---------+-------------------------------+---------+------------+---------------+---------+---------------+-------------+--------+------------+
+2 rows in set (0.00 sec)
+
+mysql>
+
+**************************************************************************************************************************************************************************************
+
+
+
+
+
+
+

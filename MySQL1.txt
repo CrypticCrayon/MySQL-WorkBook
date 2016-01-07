@@ -1,0 +1,144 @@
+*************************************************************************************************************************************************
+Shanaz Mohamed 
+*************************************************************************************************************************************************
+
+Task 1
+
+a. Attribute - A property of an entity
+b. Relational Database - A structure that houses information and the relationships between this information
+c. Primary Key - The column or group of columns that uniquely identifies a row
+d. Relationship - The association between entities
+e. Row - Tuple
+f. Foreign Key - The column (or columns) of one table which must match the primary key value of another table
+g. SQL - A language used for retrieving and manipulating a database
+h. DBMS - A software program that lets you create a database
+i. Entity - A person, place, object, or event for which you want to store data
+j. Relation - A two-dimensional table
+
+*************************************************************************************************************************************************
+
+Task 2
+
+a. Owner, Pet, Type, Visit, PetProcedure, Procedures
+
+b. Owner			OwnerId, FirstName, LastName, Street, City, State, Zip, Phone, Email
+   Pet				PetID, OwnerId, TypeID, PetName, Description, Birthday, LastVisit
+   Type 			TypeID, Food, CageSize, WaterBowlSize, FoodBowlSize, NeedsWalk, NeedsLitter, NeedsLiner
+   Visit 			PetID, OwnerId, TypeID, VisitDate, Reason
+   PetProcedure 		PetID, OwnerId, TypeID, VisitDate, ProcedureId, Notes
+   Procedures			ProcedureId, TypeID, Description, ScheduledTime, Cost
+
+c. Owner			OwnerId
+   Pet				PetID, OwnerId, TypeID
+   Type 			TypeID
+   Visit 			PetID, OwnerId, TypeID, VisitDate
+   PetProcedure 		PetID, OwnerId, TypeID, VisitDate, ProcedureId
+   Procedures			ProcedureId, TypeID  
+   
+d. Owner			none
+   Pet				OwnerId references Owner, TypeID references Type 
+   Type 			none 
+   Visit 			PetID references Visit, OwnerId references Pet, TypeID references Pet
+   PetProcedure 		PetID references Pet, OwnerId references Visit, TypeID references Visit and Procedures, VisitDate references Visit, ProcedureId references Procedures
+   Procedures			TypeID references Type
+  
+e. There is a relationship between Owner and Pet; Owner is on the one side and Pet is on the many side
+   There is a relationship between Type and Pet; Type is on the one side and Pet is on the many side
+   There is a relationship between Pet and Visit; Pet is on the one side and Visit is on the many side
+   There is a relationship between Type and Procedures; Type is on the one side and Procedures is on the many side
+   There is a relationship between Visit and PetProcedure; Visit is on the one side and PetProcedure is on the many side
+   There is a relationship between Procedures and PetProcedure; Procedures is on the one side and PetProcedure is on the many side
+   
+*************************************************************************************************************************************************
+
+Task 3
+
+mysql> CREATE DATABASE VET;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| classwork          |
+| mysql              |
+| performance_schema |
+| premiere           |
+| profiles           |
+| sakila             |
+| test               |
+| vet                |
+| world              |
++--------------------+
+10 rows in set (0.00 sec)
+
+
+*************************************************************************************************************************************************
+
+Task 4
+
+mysql> USE VET;
+Database changed
+
+mysql> CREATE TABLE TYPE
+    ->     (TYPE_ID		INT		PRIMARY KEY, 
+    ->     FOOD			VARCHAR(20)	NOT NULL,
+    ->     CAGE_SIZE    	CHAR(1)     	NOT NULL,
+    ->     WATERBOWL_SIZE  	CHAR(1)     	NOT NULL,
+    ->     FOODBOWL_SIZE   	CHAR(1)     	NOT NULL,
+    ->     NEEDS_WALK      	CHAR(1)     	NOT NULL,
+    ->     NEEDS_LITTER    	CHAR(1)     	NOT NULL,
+    ->     NEEDS_LINER     	CHAR(1)     	NOT NULL);
+Query OK, 0 rows affected (0.31 sec)
+
+mysql> SHOW COLUMNS FROM TYPE;
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| TYPE_ID        | int(11)     | NO   | PRI | NULL    |       |
+| FOOD           | varchar(20) | NO   |     | NULL    |       |
+| CAGE_SIZE      | char(1)     | NO   |     | NULL    |       |
+| WATERBOWL_SIZE | char(1)     | NO   |     | NULL    |       |
+| FOODBOWL_SIZE  | char(1)     | NO   |     | NULL    |       |
+| NEEDS_WALK     | char(1)     | NO   |     | NULL    |       |
+| NEEDS_LITTER   | char(1)     | NO   |     | NULL    |       |
+| NEEDS_LINER    | char(1)     | NO   |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+
+
+*************************************************************************************************************************************************
+
+Task 5
+
+mysql>  CREATE TABLE PET 
+    ->     (PET_ID       INT,
+    ->     OWNER_ID     CHAR(7),
+    ->     TYPE_ID      INT		REFERENCES  TYPE (TYPE_ID),
+    ->     PET_NAME     VARCHAR(30),
+    ->     DESCRIPTION  VARCHAR(50),
+    ->     BIRTH_DAY    DATE,
+    ->     LAST_VISIT   DATE,
+    ->     PRIMARY KEY  (PET_ID, OWNER_ID, TYPE_ID));
+Query OK, 0 rows affected (0.17 sec)
+
+mysql> SHOW COLUMNS FROM PET;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| PET_ID      | int(11)     | NO   | PRI | 0       |       |
+| OWNER_ID    | char(7)     | NO   | PRI |         |       |
+| TYPE_ID     | int(11)     | NO   | PRI | 0       |       |
+| PET_NAME    | varchar(30) | YES  |     | NULL    |       |
+| DESCRIPTION | varchar(50) | YES  |     | NULL    |       |
+| BIRTH_DAY   | date        | YES  |     | NULL    |       |
+| LAST_VISIT  | date        | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+*************************************************************************************************************************************************
+
+
+

@@ -1,0 +1,324 @@
+*************************************************************************************************************************************************
+Shanaz Mohamed
+
+*************************************************************************************************************************************************
+
+TASK 1:
+
+
+mysql> source F:\Shanaz 2014\AB\Sem\DB\Scripts\TestAlex.sql
+Query OK, 1 row affected (0.05 sec)
+
+Database changed
+Query OK, 0 rows affected (0.33 sec)
+
+Query OK, 1 row affected (0.06 sec)
+
+Query OK, 1 row affected (0.05 sec)
+
+Query OK, 1 row affected (0.08 sec)
+
+Query OK, 1 row affected (0.06 sec)
+
+Query OK, 1 row affected (0.06 sec)
+
+Query OK, 1 row affected (0.05 sec)
+
+Query OK, 1 row affected (0.05 sec)
+
+Query OK, 1 row affected (0.05 sec)
+
+Query OK, 1 row affected (0.06 sec)
+
+Query OK, 1 row affected (0.05 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| classwork          |
+| mysql              |
+| performance_schema |
+| premiere           |
+| profiles           |
+| sakila             |
+| test               |
+| testalex           |
+| vet                |
+| world              |
++--------------------+
+11 rows in set (0.00 sec)
+
+mysql> use testalex;
+Database changed
+
+mysql> show tables from testalex;
++--------------------+
+| Tables_in_testalex |
++--------------------+
+| testowner          |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from testowner;
++-----------+-----------+----------------+----------------+-------------+-------+-------+
+| OWNER_NUM | LAST_NAME | FIRST_NAME     | ADDRESS        | CITY        | STATE | ZIP   |
++-----------+-----------+----------------+----------------+-------------+-------+-------+
+| AD57      | Adney     | Bruce and Jean | 208 Citrus     | Bowton      | FL    | 31313 |
+| AN75      | Anderson  | Bill           | 18 Wilcox      | Glander Bay | FL    | 31044 |
+| BL72      | Blake     | Mary           | 2672 Commodore | Bowton      | FL    | 31313 |
+| EL25      | Elend     | Sandy and Bill | 462 Riverside  | Rivard      | FL    | 31062 |
+| FE82      | Feenstra  | Daniel         | 7822 Coventry  | Kaleva      | FL    | 32521 |
+| JU92      | Juarez    | Maria          | 8922 Oak       | Rivard      | FL    | 31062 |
+| KE22      | Kelly     | Alyssa         | 5271 Waters    | Bowton      | FL    | 31313 |
+| NO27      | Norton    | Peter          | 2811 Lakewood  | Lewiston    | FL    | 32765 |
+| SM72      | Smeltz    | Becky and Dave | 922 Garland    | Glander Bay | FL    | 31044 |
+| TR72      | Trent     | Ashton         | 922 Crest      | Bay Shores  | FL    | 30992 |
++-----------+-----------+----------------+----------------+-------------+-------+-------+
+10 rows in set (0.00 sec)
+
+******************************************************************************************************************************************
+TASK 2:
+
+mysql> show columns from testowner;
++------------+----------+------+-----+---------+-------+
+| Field      | Type     | Null | Key | Default | Extra |
++------------+----------+------+-----+---------+-------+
+| OWNER_NUM  | char(4)  | NO   | PRI | NULL    |       |
+| LAST_NAME  | char(50) | YES  |     | NULL    |       |
+| FIRST_NAME | char(20) | YES  |     | NULL    |       |
+| ADDRESS    | char(15) | YES  |     | NULL    |       |
+| CITY       | char(15) | YES  |     | NULL    |       |
+| STATE      | char(2)  | YES  |     | NULL    |       |
+| ZIP        | char(5)  | YES  |     | NULL    |       |
++------------+----------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> INSERT INTO TESTOWNER
+    -> VALUES
+    -> ('KA63','Kane', 'Candy', '123 Sugar Loaf', 'Lansing', 'MI', '48901');
+Query OK, 1 row affected (0.20 sec)
+
+mysql> SELECT * FROM TESTOWNER;
++-----------+-----------+----------------+----------------+-------------+-------+-------+
+| OWNER_NUM | LAST_NAME | FIRST_NAME     | ADDRESS        | CITY        | STATE | ZIP   |
++-----------+-----------+----------------+----------------+-------------+-------+-------+
+| AD57      | Adney     | Bruce and Jean | 208 Citrus     | Bowton      | FL    | 31313 |
+| AN75      | Anderson  | Bill           | 18 Wilcox      | Glander Bay | FL    | 31044 |
+| BL72      | Blake     | Mary           | 2672 Commodore | Bowton      | FL    | 31313 |
+| EL25      | Elend     | Sandy and Bill | 462 Riverside  | Rivard      | FL    | 31062 |
+| FE82      | Feenstra  | Daniel         | 7822 Coventry  | Kaleva      | FL    | 32521 |
+| JU92      | Juarez    | Maria          | 8922 Oak       | Rivard      | FL    | 31062 |
+| KA63      | Kane      | Candy          | 123 Sugar Loaf | Lansing     | MI    | 48901 |
+| KE22      | Kelly     | Alyssa         | 5271 Waters    | Bowton      | FL    | 31313 |
+| NO27      | Norton    | Peter          | 2811 Lakewood  | Lewiston    | FL    | 32765 |
+| SM72      | Smeltz    | Becky and Dave | 922 Garland    | Glander Bay | FL    | 31044 |
+| TR72      | Trent     | Ashton         | 922 Crest      | Bay Shores  | FL    | 30992 |
++-----------+-----------+----------------+----------------+-------------+-------+-------+
+11 rows in set (0.00 sec)
+
+****************************************************************************************************
+TASK 3:
+
+mysql> INSERT INTO TESTOWNER(OWNER_NUM, LAST_NAME, FIRST_NAME)
+    -> VALUES
+    -> ('TW23', 'Twain', 'Lionel');
+Query OK, 1 row affected (0.19 sec)
+
+mysql> SELECT * FROM TESTOWNER;
++-----------+-----------+----------------+----------------+-------------+-------+-------+
+| OWNER_NUM | LAST_NAME | FIRST_NAME     | ADDRESS        | CITY        | STATE | ZIP   |
++-----------+-----------+----------------+----------------+-------------+-------+-------+
+| AD57      | Adney     | Bruce and Jean | 208 Citrus     | Bowton      | FL    | 31313 |
+| AN75      | Anderson  | Bill           | 18 Wilcox      | Glander Bay | FL    | 31044 |
+| BL72      | Blake     | Mary           | 2672 Commodore | Bowton      | FL    | 31313 |
+| EL25      | Elend     | Sandy and Bill | 462 Riverside  | Rivard      | FL    | 31062 |
+| FE82      | Feenstra  | Daniel         | 7822 Coventry  | Kaleva      | FL    | 32521 |
+| JU92      | Juarez    | Maria          | 8922 Oak       | Rivard      | FL    | 31062 |
+| KA63      | Kane      | Candy          | 123 Sugar Loaf | Lansing     | MI    | 48901 |
+| KE22      | Kelly     | Alyssa         | 5271 Waters    | Bowton      | FL    | 31313 |
+| NO27      | Norton    | Peter          | 2811 Lakewood  | Lewiston    | FL    | 32765 |
+| SM72      | Smeltz    | Becky and Dave | 922 Garland    | Glander Bay | FL    | 31044 |
+| TR72      | Trent     | Ashton         | 922 Crest      | Bay Shores  | FL    | 30992 |
+| TW23      | Twain     | Lionel         | NULL           | NULL        | NULL  | NULL  |
++-----------+-----------+----------------+----------------+-------------+-------+-------+
+12 rows in set (0.00 sec)
+
+
+********************************************************************************************************
+TASK 4:
+
+mysql> UPDATE TESTOWNER
+    -> SET ADDRESS = '405 Orange Grv'
+    -> WHERE OWNER_NUM = 'AD57';
+Query OK, 1 row affected (0.14 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM TESTOWNER;
++-----------+-----------+----------------+----------------+-------------+-------+-------+
+| OWNER_NUM | LAST_NAME | FIRST_NAME     | ADDRESS        | CITY        | STATE | ZIP   |
++-----------+-----------+----------------+----------------+-------------+-------+-------+
+| AD57      | Adney     | Bruce and Jean | 405 Orange Grv | Bowton      | FL    | 31313 |
+| AN75      | Anderson  | Bill           | 18 Wilcox      | Glander Bay | FL    | 31044 |
+| BL72      | Blake     | Mary           | 2672 Commodore | Bowton      | FL    | 31313 |
+| EL25      | Elend     | Sandy and Bill | 462 Riverside  | Rivard      | FL    | 31062 |
+| FE82      | Feenstra  | Daniel         | 7822 Coventry  | Kaleva      | FL    | 32521 |
+| JU92      | Juarez    | Maria          | 8922 Oak       | Rivard      | FL    | 31062 |
+| KA63      | Kane      | Candy          | 123 Sugar Loaf | Lansing     | MI    | 48901 |
+| KE22      | Kelly     | Alyssa         | 5271 Waters    | Bowton      | FL    | 31313 |
+| NO27      | Norton    | Peter          | 2811 Lakewood  | Lewiston    | FL    | 32765 |
+| SM72      | Smeltz    | Becky and Dave | 922 Garland    | Glander Bay | FL    | 31044 |
+| TR72      | Trent     | Ashton         | 922 Crest      | Bay Shores  | FL    | 30992 |
+| TW23      | Twain     | Lionel         | NULL           | NULL        | NULL  | NULL  |
++-----------+-----------+----------------+----------------+-------------+-------+-------+
+12 rows in set (0.00 sec)
+
+
+************************************************************************************************
+TASK 5:
+
+mysql> DELETE
+    -> FROM TESTOWNER
+    -> WHERE OWNER_NUM = 'AN75';
+Query OK, 1 row affected (0.14 sec)
+
+mysql> SELECT * FROM TESTOWNER;
++-----------+-----------+----------------+----------------+-------------+-------+-------+
+| OWNER_NUM | LAST_NAME | FIRST_NAME     | ADDRESS        | CITY        | STATE | ZIP   |
++-----------+-----------+----------------+----------------+-------------+-------+-------+
+| AD57      | Adney     | Bruce and Jean | 405 Orange Grv | Bowton      | FL    | 31313 |
+| BL72      | Blake     | Mary           | 2672 Commodore | Bowton      | FL    | 31313 |
+| EL25      | Elend     | Sandy and Bill | 462 Riverside  | Rivard      | FL    | 31062 |
+| FE82      | Feenstra  | Daniel         | 7822 Coventry  | Kaleva      | FL    | 32521 |
+| JU92      | Juarez    | Maria          | 8922 Oak       | Rivard      | FL    | 31062 |
+| KA63      | Kane      | Candy          | 123 Sugar Loaf | Lansing     | MI    | 48901 |
+| KE22      | Kelly     | Alyssa         | 5271 Waters    | Bowton      | FL    | 31313 |
+| NO27      | Norton    | Peter          | 2811 Lakewood  | Lewiston    | FL    | 32765 |
+| SM72      | Smeltz    | Becky and Dave | 922 Garland    | Glander Bay | FL    | 31044 |
+| TR72      | Trent     | Ashton         | 922 Crest      | Bay Shores  | FL    | 30992 |
+| TW23      | Twain     | Lionel         | NULL           | NULL        | NULL  | NULL  |
++-----------+-----------+----------------+----------------+-------------+-------+-------+
+11 rows in set (0.00 sec)
+
+***************************************************************************************************
+
+TASK 6:
+
+mysql> SELECT QUIZDATE
+    -> FROM QUIZZES
+    -> WHERE QUIZNUM = '1';
++------------+
+| QUIZDATE   |
++------------+
+| 2009-01-25 |
+| 2009-06-15 |
+| 2009-08-25 |
+| 2010-01-24 |
+| 2010-06-14 |
+| 2010-08-24 |
++------------+
+6 rows in set (0.13 sec)
+
+***************************************************************************************************
+
+TASK 7:
+
+mysql> SELECT QUESTIONID, TEXT
+    -> FROM QUESTIONS
+    -> WHERE TOPICID = 'SCRP'
+    -> AND CORRECTANSWER != 'D';
++------------+--------------------------------+
+| QUESTIONID | TEXT                           |
++------------+--------------------------------+
+|         20 | Acid-free paper is preferred   |
+|         23 | When writing it is best to use |
+|         24 | To create identical bears use  |
+|         26 | Never use beads.               |
+|         29 | A scrapbook page must be flat. |
++------------+--------------------------------+
+5 rows in set (0.01 sec)
+
+***************************************************************************************************
+
+TASK 8:
+
+mysql> SELECT QUIZNUM, QUIZDATE, LOWSCORE
+    -> FROM QUIZZES
+    -> WHERE LOWSCORE BETWEEN 10 AND 15;
++---------+------------+----------+
+| QUIZNUM | QUIZDATE   | LOWSCORE |
++---------+------------+----------+
+|       2 | 2009-03-06 |     10.5 |
+|       2 | 2009-09-21 |     10.5 |
+|       2 | 2010-03-05 |     11.5 |
+|       3 | 2009-03-24 |     14.5 |
+|       3 | 2009-10-12 |     14.5 |
+|       4 | 2010-04-13 |     12.5 |
+|       5 | 2010-04-03 |     11.5 |
+|       5 | 2010-12-08 |     15.0 |
++---------+------------+----------+
+8 rows in set (0.00 sec)
+
+
+*****************************************************************************************************
+
+TASK 9:
+
+mysql> SELECT TITLE, NUMCLASSSESSIONS, ((NUMCLASSSESSIONS+NUMLABSESSIONS)*3/4) AS
+    -> NewSessions
+    -> FROM TOPICS;
++----------------------+------------------+-------------+
+| TITLE                | NUMCLASSSESSIONS | NewSessions |
++----------------------+------------------+-------------+
+| Crochet              |             NULL |        NULL |
+| Jewelry Making       |                3 |      3.0000 |
+| Knitting             |                2 |      2.2500 |
+| Needlepoint          |             NULL |        NULL |
+| Pottery              |                1 |      0.7500 |
+| Painting             |                4 |      4.5000 |
+| Quilting             |                2 |      3.0000 |
+| Scrapbooking         |                3 |      3.7500 |
+| Candle & Soap Making |                2 |      1.5000 |
+| Rubber Stamping      |             NULL |        NULL |
+| Woodworking          |                1 |      0.7500 |
+| Cross-Stitch         |                4 |      4.5000 |
++----------------------+------------------+-------------+
+12 rows in set (0.11 sec)
+
+*****************************************************************************************************
+
+TASK 10:
+
+mysql> SELECT QUESTIONID, TEXT, DIFFICULTY
+    -> FROM QUESTIONS
+    -> WHERE TOPICID IN ('QULT', 'POTT', 'JEWL')
+    -> ORDER BY DIFFICULTY DESC, TEXT;
++------------+-------------------------------+------------+
+| QUESTIONID | TEXT                          | DIFFICULTY |
++------------+-------------------------------+------------+
+|         51 | Flower pins are used because  |          4 |
+|         45 | Where is a Daith piercing?    |          4 |
+|         50 | Binding                       |          3 |
+|          7 | If you are hand quilting use  |          3 |
+|         14 | When chenilling use           |          3 |
+|         44 | A finding is                  |          2 |
+|         16 | A seam ripper is required.    |          2 |
+|         47 | Clarity refers to             |          2 |
+|         15 | Cotton fabric is best.        |          2 |
+|         46 | What is a loupe?              |          2 |
+|         10 | Which is a beginner pattern?  |          2 |
+|         12 | Which uses curved seams?      |          2 |
+|         43 | All jewelry uses beads.       |          1 |
+|         31 | A slab pot should have        |       NULL |
+|         36 | Earthenware fires at          |       NULL |
+|         33 | To throw a pot on a wheel     |       NULL |
+|         34 | Trimming works best when clay |       NULL |
+|         52 | What is a kiln?               |       NULL |
+|         40 | Which is not a type of clay?  |       NULL |
+|         30 | Which is not a type of pot?   |       NULL |
+|         41 | You fire pottery when clay is |       NULL |
++------------+-------------------------------+------------+
+21 rows in set (0.13 sec)
+
+mysql> NOTEE;
